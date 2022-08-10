@@ -26,19 +26,17 @@ class Square {
 }
 
 class Triangle {
-    constructor(side1, side2, base, height) {
+    constructor(side1, side2, base) {
         this.side1 = side1;
         this.side2 = side2;
         this.base = base;
-        this.height = height;
     }
 
     get sides() {
         return {
             'Side 1': `${this.side1}cm`, 
             'Side 2': `${this.side2}cm`, 
-            'Base': `${this.base}cm`, 
-            'Height': `${this.height}cm`
+            'Base': `${this.base}cm`
         };
     }
 
@@ -47,15 +45,27 @@ class Triangle {
     }
 
     get area() {
-        return `\nArea: ${this.calculateArea(this.base, this.height)}cm^2`;
+        return `\nArea: ${this.calculateArea(this.base, this.side1)}cm^2`;
+    }
+
+    get height() {
+        return `\nHeight: ${this.calculateHeight(this.side1, this.base)}`;
     }
 
     calculatePerimeter(side1, side2, base) {
         return side1 + side2 + base;
     }
 
-    calculateArea(base, height) {
-        return (base * height) / 2;
+    calculateArea(base, side) {
+        return (base * this.calculateHeight(side, base)) / 2;
+    }
+
+    calculateHeight(side1, base) {
+        if (side1 == base) {
+            console.warn('Este no es un triangulo isosceles');
+        } else {
+            return Math.sqrt(side1**2 - ((base**2) / 4));
+        }
     }
 }
 
@@ -116,7 +126,8 @@ console.log(
     "Triangle =>", 
     myTriangle.sides,  
     myTriangle.perimeter, 
-    myTriangle.area
+    myTriangle.area, 
+    myTriangle.height
 );
 
 // Circle
