@@ -1,4 +1,4 @@
-list = [400, 450, 515, 370, 410, 540, 700, 701, 80];
+list = [400, 450, 515, 370, 410, 540, 700, 701, 80, 370, 450, 100, 370];
 
 // Funcionalidades
 function isPair(arr) {
@@ -43,4 +43,21 @@ function calculateMedian(arr) {
     }
 
     return median;
+}
+
+
+// Calcular moda
+function calculateMode(arr) {
+    let auxArr = {};
+    
+    arr.map(element => {
+        element in auxArr ? (auxArr[element]++) : (auxArr[element] = 1);
+    });
+    
+    auxArr = Object.entries(auxArr);
+    const sortArr = auxArr.sort((av, nv) => av[1] - nv[1]);
+    
+    let biggerNum = sortArr[sortArr.length - 1][0];
+
+    return biggerNum;
 }
